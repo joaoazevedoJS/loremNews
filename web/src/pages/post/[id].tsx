@@ -1,37 +1,31 @@
-import {
-  FC,
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
-import { useRouter } from 'next/router';
 import api from '../../services/api';
+
+import { usePost } from '../../hooks/usePost';
+
+import { ButtonPost } from '../../components/ButtonPost';
 
 import styles from '../../styles/pages/post/Post.module.scss';
 
 import { IPost } from '../../models/IPost';
 import { IUser } from '../../models/IUser';
 import { IComment } from '../../models/IComment';
-import { usePost } from '../../hooks/usePost';
 
 interface PostProps {
   post: IPost;
 }
 
 const Post: FC<PostProps> = ({ post }) => {
-  const router = useRouter();
   const { posts } = usePost();
 
   const [comments, setComments] = useState<IComment[]>([]);
 
   useEffect(() => {
     api
-      .get<IComment[]>(`/post/${post.id}/comments`)
+      .get<IComment[]>(`/posts/${post.id}/comments`)
       .then(response => setComments(response.data));
   }, [post.id]);
 
@@ -48,22 +42,6 @@ const Post: FC<PostProps> = ({ post }) => {
 
     return result;
   }, [post.id, posts]);
-
-  const handleNavigateToPost = useCallback(
-    (post_id: number) => {
-      router.push(`/post/${post_id}`);
-    },
-    [router],
-  );
-
-  const handlePressKeyboard = useCallback(
-    ({ key }: KeyboardEvent, post_id: number) => {
-      if (key === 'Enter') {
-        handleNavigateToPost(post_id);
-      }
-    },
-    [handleNavigateToPost],
-  );
 
   return (
     <main className={styles.container}>
@@ -83,18 +61,7 @@ const Post: FC<PostProps> = ({ post }) => {
         <ul>
           {readMore.map(postMore => (
             <li key={postMore.id}>
-              <button
-                type="button"
-                onClick={() => handleNavigateToPost(postMore.id)}
-                onKeyUp={event => handlePressKeyboard(event, postMore.id)}
-              >
-                <strong>
-                  {postMore.title.substring(0, 20)}
-                  {postMore.title.length > 20 && '...'}
-                </strong>
-
-                <p>{postMore.body.substring(0, 50)}...</p>
-              </button>
+              <ButtonPost post={postMore} />
             </li>
           ))}
         </ul>
@@ -123,13 +90,11 @@ const Post: FC<PostProps> = ({ post }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
-    const { data: users } = await api.get<IUser[]>('/users');
     const { data: post } = await api.get<IPost>(`/posts/${params.id}`);
+    const { data: user } = await api.get<IUser>(`/users/${post.userId}`);
 
-    const userFinder = users.find(user => user.id === post.userId);
-
-    if (userFinder) {
-      post.author = userFinder;
+    if (user) {
+      post.author = user;
     }
 
     return {
