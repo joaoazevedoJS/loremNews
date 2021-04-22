@@ -1,7 +1,7 @@
 .container {
   max-width: 1080px;
   width: 100%;
-  margin: 4rem auto 0 auto;
+  margin: 4rem auto 2rem auto;
   padding: 0 1.25rem;
 
   h1 {
@@ -54,37 +54,7 @@
     row-gap: 2rem;
 
     li {
-      height: 125px;
-
-      button {
-        border: 0;
-        background: transparent;
-        padding: 1rem;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 4px;
-
-        &:hover {
-          background: var(--cyan-500);
-        }
-
-        strong {
-          font-size: 1.25rem;
-          margin-bottom: 0.5rem;
-          line-height: 125%;
-        }
-
-        p {
-          line-height: 145%;
-          color: var(--gray-500)
-        }
-
-        strong, p {
-          text-align: left;
-        }
-      }
+      height: 130px;
     }
   }
 
@@ -106,8 +76,6 @@
 }
 
 .comments {
-  margin-bottom: 1rem;
-
   ul {
     max-width: 70%;
 
@@ -115,7 +83,7 @@
       display: flex;
 
       & + li {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
       }
 
       img {

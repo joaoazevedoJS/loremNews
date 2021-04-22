@@ -1,0 +1,4 @@
+{
+  "/posts/:id/comments": "/comments?postId=:id",
+  "/users/:id/posts": "/posts?userId=:id"
+}
