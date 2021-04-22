@@ -1,0 +1,65 @@
+.container {
+  max-width: 1080px;
+  width: 100%;
+  margin: 4rem auto 0 auto;
+  padding: 0 1.25rem;
+}
+
+.listProduct {
+  list-style: none;
+
+  button {
+    border: 0;
+    border-radius: 4px;
+
+    background: transparent;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 2rem;
+    border-bottom: 1px solid var(--gray-100);
+
+    transition: background-color 0.4s;
+
+    &:hover {
+      background: var(--cyan-500);
+
+      a {
+        color: var(--white);
+      }
+    }
+
+    strong, p {
+      text-align: left;
+    }
+
+    strong {
+      font-size: 1.5rem;
+      line-height: 2.10rem;
+    }
+
+    p {
+      width: 60%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin: 0.5rem 0;
+      color: var(--gray-500);
+    }
+
+    span {
+      color: var(--gray-500);
+
+      a {
+        font-weight: bold;
+        color: var(--cyan-500);
+        transition: color 0.4s;
+      }
+    }
+  }
+}
