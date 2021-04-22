@@ -30,6 +30,16 @@
     color: var(--gray-500);
     margin: 0.5rem 0 1rem;
   }
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+
+    img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 .posts {
@@ -64,6 +74,7 @@
 
 .info {
   li {
+    list-style: none;
     padding-left: 1rem;
 
     & + li {
